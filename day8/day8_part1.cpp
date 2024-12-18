@@ -56,14 +56,22 @@ int main()
         vector<point> vec = pair.second;
         for (int i = 0; i < vec.size(); ++i)
         {
+            if (vec.size() > 1)
+                ans.insert(vec[i]);
             for (int j = 0; j < vec.size(); ++j)
             {
                 if (j == i)
                     continue;
                 int dx = vec[j].x - vec[i].x;
                 int dy = vec[j].y - vec[i].y;
-                if (inbounds(vec[j].x + dx, vec[j].y + dy))
-                    ans.insert({vec[j].x + dx, vec[j].y + dy});
+                int temp_x = vec[j].x + dx;
+                int temp_y = vec[j].y + dy;
+                while (inbounds(temp_x, temp_y))
+                {
+                    ans.insert({temp_x, temp_y});
+                    temp_x += dx;
+                    temp_y += dy;
+                }
             }
         }
     }
